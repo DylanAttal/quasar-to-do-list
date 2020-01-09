@@ -15,6 +15,7 @@
         <div class="text-h3">To Do</div>
         <div class="text-subtitle1">Monday, November 4th</div>
       </div>
+      <q-img src="statics/mountains.jpg" class="header-image absolute-top" />
     </q-header>
 
     <q-drawer v-model="leftDrawerOpen" show-if-above bordered content-class="bg-grey-2">
@@ -94,3 +95,12 @@ export default {
   }
 };
 </script>
+
+<style lang="scss">
+.header-image {
+  height: 100%;
+  z-index: -1;
+  opacity: 0.3;
+  filter: grayscale(100%);
+}
+</style>
