@@ -13,7 +13,7 @@
       </q-toolbar>
       <div class="q-px-lg q-pt-xl q-mb-md">
         <div class="text-h3">To Do</div>
-        <div class="text-subtitle1">Monday, November 4th</div>
+        <div class="text-subtitle1">{{ todaysDate }}</div>
       </div>
       <q-img src="statics/mountains.jpg" class="header-image absolute-top" />
     </q-header>
@@ -85,6 +85,8 @@
 </template>
 
 <script>
+import { date } from "quasar";
+
 export default {
   name: "MyLayout",
 
@@ -92,6 +94,15 @@ export default {
     return {
       leftDrawerOpen: false
     };
+  },
+  computed: {
+    todaysDate() {
+      const timeStamp = Date.now();
+      return `${date.formatDate(timeStamp, "dddd")}, ${date.formatDate(
+        timeStamp,
+        "MMMM"
+      )} ${date.formatDate(timeStamp, "D")}`;
+    }
   }
 };
 </script>
