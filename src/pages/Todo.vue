@@ -47,6 +47,12 @@
         </q-item-section>
       </q-item>
     </q-list>
+    <div v-if="!items.length" class="no-items absolute-center">
+      <q-icon name="check" size="100px" color="primary"></q-icon>
+      <div class="text-h5 text-primary text-center">
+        No items
+      </div>
+    </div>
   </q-page>
 </template>
 
@@ -54,20 +60,7 @@
 export default {
   data() {
     return {
-      items: [
-        {
-          title: "First item",
-          done: false
-        },
-        {
-          title: "Second item",
-          done: false
-        },
-        {
-          title: "Third item",
-          done: false
-        }
-      ],
+      items: [],
       newItem: ""
     };
   },
@@ -103,5 +96,9 @@ export default {
     text-decoration: line-through;
     color: #bbb;
   }
+}
+
+.no-items {
+  opacity: 0.5;
 }
 </style>
