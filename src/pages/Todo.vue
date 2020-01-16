@@ -1,22 +1,49 @@
 <template>
   <q-page class="bg-grey-3 column">
+    <div class="row q-pa-sm bg-primary">
+      <q-input
+        v-model="newItem"
+        @keyup.enter="addItem"
+        class="col"
+        bg-color="white"
+        placeholder="Add Item"
+        square
+        filled
+        dense
+      >
+        <template v-slot:append>
+          <q-btn @click="addItem" icon="add" round dense flat />
+        </template>
+      </q-input>
+    </div>
     <q-list class="bg-white" separator bordered>
       <q-item
-        v-for="(task, index) in tasks"
+        v-for="(item, index) in items"
         :key="index"
         clickable
-        @click="task.done = !task.done"
-        :class="{ 'done bg-blue-1': task.done }"
+        @click="item.done = !item.done"
+        :class="{ 'done bg-blue-1': item.done }"
         v-ripple
       >
         <q-item-section avatar>
-          <q-checkbox v-model="task.done" class="no-pointer-events" color="primary" />
+          <q-checkbox
+            v-model="item.done"
+            class="no-pointer-events"
+            color="primary"
+          />
         </q-item-section>
         <q-item-section>
-          <q-item-label>{{ task.title }}</q-item-label>
+          <q-item-label>{{ item.title }}</q-item-label>
         </q-item-section>
-        <q-item-section v-if="task.done" side>
-          <q-btn @click.stop="deleteTask(index)" flat round dense color="primary" icon="delete" />
+        <q-item-section v-if="item.done" side>
+          <q-btn
+            @click.stop="deleteItem(index)"
+            flat
+            round
+            dense
+            color="primary"
+            icon="delete"
+          />
         </q-item-section>
       </q-item>
     </q-list>
@@ -27,24 +54,25 @@
 export default {
   data() {
     return {
-      tasks: [
+      items: [
         {
-          title: "First task",
+          title: "First item",
           done: false
         },
         {
-          title: "Second task",
+          title: "Second item",
           done: false
         },
         {
-          title: "Third task",
+          title: "Third item",
           done: false
         }
-      ]
+      ],
+      newItem: ""
     };
   },
   methods: {
-    deleteTask(index) {
+    deleteItem(index) {
       this.$q
         .dialog({
           title: "Confirm",
@@ -53,9 +81,17 @@ export default {
           persistent: true
         })
         .onOk(() => {
-          this.tasks.splice(index, 1);
+          this.items.splice(index, 1);
           this.$q.notify("Item deleted.");
         });
+    },
+    addItem() {
+      this.items.push({
+        title: this.newItem,
+        done: false
+      });
+
+      this.newItem = "";
     }
   }
 };
